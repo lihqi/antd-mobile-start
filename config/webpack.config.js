@@ -33,7 +33,7 @@ const appPackageJson = require(paths.appPackageJson);
 // bundle分析插件
 let BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-  //lodash按需加载插件 
+//lodash按需加载插件
 var LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
@@ -414,9 +414,19 @@ module.exports = function(webpackEnv) {
               exclude: /@babel(?:\/|\\{1,2})runtime/,
               loader: require.resolve("babel-loader"),
               options: {
+                plugins: [
+                  [
+                    "import",
+                    {
+                      libraryName: "antd-mobile",
+                      libraryDirectory: "es",
+                      style: "css"
+                    }
+                  ]
+                ],
                 babelrc: false,
                 configFile: false,
-                compact: false,
+                compact: true,
                 presets: [
                   [
                     require.resolve("babel-preset-react-app/dependencies"),
