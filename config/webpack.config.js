@@ -33,6 +33,8 @@ const appPackageJson = require(paths.appPackageJson);
 // bundle分析插件
 let BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+  //lodash按需加载插件 
+var LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -519,6 +521,7 @@ module.exports = function(webpackEnv) {
       ]
     },
     plugins: [
+      new LodashModuleReplacementPlugin(),
       new BundleAnalyzerPlugin({
         //  可以是`server`，`static`或`disabled`。
         //  在`server`模式下，分析器将启动HTTP服务器来显示软件包报告。
